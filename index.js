@@ -25,6 +25,7 @@ const linuxEmptyTrashes = async () => {
 
 module.exports = async () => {
 	if (process.platform === 'darwin') {
+		// mac平台使用jxa
 		await runJxa(`
 			const finder = Application('Finder');
 
@@ -34,7 +35,8 @@ module.exports = async () => {
 		`);
 		return;
 	}
-
+	//windows平台执行exe文件
+	// 通过child_process.execFile来执行exe
 	if (process.platform === 'win32') {
 		await execFileP(path.join(__dirname, 'lib/empty-recycle-bin.exe'));
 		return;
